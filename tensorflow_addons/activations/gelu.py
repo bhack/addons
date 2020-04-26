@@ -63,11 +63,8 @@ def _gelu_grad(op, grad):
         grad, op.inputs[0], op.get_attr("approximate")
     )
 
-
+@tf_function
 def _gelu_py(x: types.TensorLike, approximate: bool = True) -> tf.Tensor:
-    if approximate:
-        pi = tf.cast(math.pi, x.dtype)
-        coeff = tf.cast(0.044715, x.dtype)
-        return 0.5 * x * (1.0 + tf.tanh(tf.sqrt(2.0 / pi) * (x + coeff * tf.pow(x, 3))))
-    else:
-        return 0.5 * x * (1.0 + tf.math.erf(x / tf.cast(tf.sqrt(2.0), x.dtype)))
+  cdf = 0.5 * (1.0 + tf.tanh(
+      (math.sqrt(2 / math.pi) * (x + 0.044715 * tf.pow(x, 3)))))
+  return x * cdf
