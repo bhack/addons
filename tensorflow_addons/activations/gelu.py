@@ -65,7 +65,6 @@ def _gelu_grad(op, grad):
 
 
 def _gelu_py(x: types.TensorLike, approximate: bool = True) -> tf.Tensor:
-    x = tf.convert_to_tensor(x)
     if approximate:
         pi = tf.cast(math.pi, x.dtype)
         coeff = tf.cast(0.044715, x.dtype)
