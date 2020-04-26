@@ -63,7 +63,7 @@ def _gelu_grad(op, grad):
         grad, op.inputs[0], op.get_attr("approximate")
     )
 
-@tf_function
+@tf.function
 def _gelu_py(x: types.TensorLike, approximate: bool = True) -> tf.Tensor:
   cdf = 0.5 * (1.0 + tf.tanh(
       (math.sqrt(2 / math.pi) * (x + 0.044715 * tf.pow(x, 3)))))
