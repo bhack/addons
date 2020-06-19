@@ -119,7 +119,9 @@ def test_fit_simple_linear_model():
     max_abs_diff = np.max(np.abs(predicted - y))
     assert max_abs_diff < 1e-3
 
-
+# Remove this after https://github.com/tensorflow/tensorflow/issues/39775
+@pytest.mark.with_device(["cpu"])
+# -------------------------------------
 def test_fit_simple_linear_model_mixed_precision():
     np.random.seed(0x2019)
     tf.random.set_seed(0x2019)
